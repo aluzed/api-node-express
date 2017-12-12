@@ -26,5 +26,37 @@ app.get('/add/:number', (req, res, next) => {
     res.send(req.params.number + 1);
 })
 
+// Chaque middleware va incrémenter number
+app.get('/chain_add/:number', (req, res, next) => {
+    // On n'oublie surtout pas que les paramètres sont des string par défaut
+    req.params.number = parseInt(req.params.number);
+    next();
+}, (req, res, next) => {
+    // Middleware 1
+    req.params.number++;
+    next();
+}, (req, res, next) => {
+    // Middleware 2
+    req.params.number++;
+    next();
+}, (req, res) => {
+    res.send(req.params.number.toString());
+})
+
+app.use((req, res, next) => {
+  // Mon middleware global
+  if(!req.body.login || !req.body.password || req.body.login === "" || req.body.password === "") {
+    // Bad Request
+    res.status(400).send('Erreur, champs login ou password manquant.');
+  }
+
+}).get('/route', (req, res) => {
+  // Traitement de la route
+  res.send('Route 1');
+}).get('/route2', (req, res) => {
+  // Traitement de la route 2
+  res.send('Route 2');
+})
+
 // On écoute sur le port défini dans notre fichier de configuration
 app.listen(Cfg.httpPort);

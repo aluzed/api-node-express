@@ -1,0 +1,11 @@
+{
+  "undef": true,
+  "unused": true,
+  "globals": {
+    "MY_GLOBAL": true
+  },
+  "esversion": 6,
+  "varstmt": true,
+  "node": true,
+  "asi": true
+}
