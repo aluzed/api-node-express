@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 // Connexion à la base de données
-mongoose.connect('mongodb://localhost:27017');
+mongoose.connect('mongodb://localhost:27017/mabasetest');
 
 // On instancie notre router
 const app = express();
