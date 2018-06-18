@@ -25,7 +25,7 @@ const postsRouter = require('./routers/posts');
 // On attache les routes users au point d'entrée /users
 app.use('/users', usersRouter);
 // On attache les routes catégories au point d'entrée /posts_categories
-app.use('/posts_categories', postsCategoriesRouter);
+app.use('/post_categories', postsCategoriesRouter);
 // On attache les routes articles au point d'entrée /posts
 app.use('/posts', postsRouter);
 
