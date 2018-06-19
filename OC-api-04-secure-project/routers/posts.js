@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
+// On charge notre librairie d'accès
+const access = require('../libs/access');
+
 const Posts = require('../models/posts');
 
 // Lister les articles 
-router.get('/', (req, res) => {
+router.get('/', access.isLoggedIn, (req, res) => {
   Posts.find({}, (err, results) => {
     // Traitement du cas d'erreur
     if(err) {
@@ -18,7 +21,7 @@ router.get('/', (req, res) => {
 });
 
 // Récupérer un article par son ID
-router.get('/:id', (req, res) => {
+router.get('/:id', access.isLoggedIn, (req, res) => {
   let id = req.params.id;
 
   // Si l'id n'existe pas 
@@ -35,7 +38,7 @@ router.get('/:id', (req, res) => {
 })
 
 // Ajouter une nouvelle catégorie
-router.post('/', (req, res) => {
+router.post('/', access.isLoggedIn, (req, res) => {
   let tmpPostCategory = req.body;
   
   Posts.create(tmpPostCategory, (err, category) => {
@@ -50,7 +53,7 @@ router.post('/', (req, res) => {
 
 
 // Modifier une catégorie
-router.put('/:id', (req, res) => {
+router.put('/:id', access.isLoggedIn, (req, res) => {
   let id = req.params.id;
   
   // Si l'id n'est pas défini
@@ -75,7 +78,7 @@ router.put('/:id', (req, res) => {
 });
 
 // Supprimer une catégorie
-router.delete('/:id', (req, res) => {
+router.delete('/:id', access.isLoggedIn, (req, res) => {
   let id = req.params.id;
   
   // Si id n'est pas défini
@@ -95,6 +98,5 @@ router.delete('/:id', (req, res) => {
       return res.status(200).send();
   })
 });
-
 
 module.exports = router;

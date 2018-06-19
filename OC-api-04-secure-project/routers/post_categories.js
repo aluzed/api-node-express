@@ -4,7 +4,7 @@ const router = express.Router();
 const PostCategories = require('../models/post_categories');
 
 // Lister les catégories 
-router.get('/', (req, res) => {
+router.get('/', access.isLoggedIn, (req, res) => {
   PostCategories.find({}, (err, results) => {
     // Traitement du cas d'erreur
     if(err) {
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 });
 
 // Récupérer une catégorie par son ID
-router.get('/:id', (req, res) => {
+router.get('/:id', access.isLoggedIn, (req, res) => {
   let id = req.params.id;
 
   // Si l'id n'existe pasU
@@ -35,7 +35,7 @@ router.get('/:id', (req, res) => {
 })
 
 // Ajouter une nouvelle catégorie
-router.post('/', (req, res) => {
+router.post('/', access.isLoggedIn, (req, res) => {
   let tmpPostCategory = req.body;
   
   PostCategories.create(tmpPostCategory, (err, category) => {
@@ -50,7 +50,7 @@ router.post('/', (req, res) => {
 
 
 // Modifier une catégorie
-router.put('/:id', (req, res) => {
+router.put('/:id', access.isLoggedIn, (req, res) => {
   let id = req.params.id;
   
   // Si l'id n'est pas défini
@@ -75,7 +75,7 @@ router.put('/:id', (req, res) => {
 });
 
 // Supprimer une catégorie
-router.delete('/:id', (req, res) => {
+router.delete('/:id', access.isLoggedIn, (req, res) => {
   let id = req.params.id;
   
   // Si id n'est pas défini
