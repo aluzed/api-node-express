@@ -9,7 +9,7 @@
       "type": "node",
       "request": "launch",
       "name": "Lancer le programme",
-      "program": "${workspaceFolder}/OC-api-03-project/index.js"
+      "program": "${workspaceFolder}/OC-api-04-secure-project/index.js"
     }
   ]
 }

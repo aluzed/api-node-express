@@ -27,20 +27,21 @@ const security = {
     // Nous allons retourner une promesse
     return new Promise((resolve, reject) => {
       // On génère un token pour le user passé en paramètre
-      jwt.sign(user, config.security.secret, config.security.duree_validite, (err, token) => {
+      jwt.sign({
+        _id: user.id,
+        utilisateur: user.utilisateur,
+        email: user.email,
+        date_inscription: user.date_inscription,
+        nom: user.nom,
+        prenom: user.prenom
+      }, config.security.secret, { expiresIn: config.security.duree_validite }, (err, token) => {
         // Si la méthode renvoie une erreur
         if(err) {
-          return rejec(err);
+          return reject(err);
         }
 
         return resolve(token);
       })
-    })
-  },
-  // Méthode qui permet de cesser la validité d'un token
-  signOut: token => {
-    return new Promise((resolve, reject) => {
-      jwt.destroy(token, )
     })
   },
   // Méthode qui permet de vérifier qu'un token est toujours valide
