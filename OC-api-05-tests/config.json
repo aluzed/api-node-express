@@ -1,0 +1,8 @@
+{
+  "security": {
+      "salt": "q8wN9_",
+      "pepper": "u6wYNj7@",
+      "secret": "ç@v@bi3nic!?",
+      "duree_validite": "1h"
+  }
+}
