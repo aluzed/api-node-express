@@ -3,8 +3,18 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+const Events = require('events');
+class CustomEvents extends Events { };
+const EngineEventEmitter = new CustomEvents();
+
 // Connexion à la base de données
-mongoose.connect('mongodb://localhost:27017/mabasetest');
+if(process.env.NODE_ENV === 'tests') {
+  mongoose.connect('mongodb://localhost:27017/mabasetest_tdd');
+}
+else {
+  mongoose.connect('mongodb://localhost:27017/mabasetest');
+}
+
 
 // On instancie notre router
 const app = express();
@@ -32,4 +42,7 @@ app.use('/posts', postsRouter);
 // Lancement du serveur API
 app.listen(3000, () => {
   console.log('server opened on 3000');
+  EngineEventEmitter.emit('ready');
 })
+
+module.exports = EngineEventEmitter;

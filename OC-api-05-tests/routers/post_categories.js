@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
+// On charge notre librairie d'accès
+const access = require('../libs/access');
+
 const PostCategories = require('../models/post_categories');
 
 // Lister les catégories 
