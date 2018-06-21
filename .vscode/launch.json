@@ -7,6 +7,25 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Users Routes Tests",
+      "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+      "args": [
+        "-u",
+        "tdd",
+        "--timeout",
+        "999999",
+        "--colors",
+        "${workspaceFolder}/OC-api-05-tests/tests/routers/users.spec.js",
+        "--exit"
+      ],
+      "env": {
+        "NODE_ENV": "tests"
+      }
+      "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Security Lib Tests",
       "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
       "args": [
