@@ -40,6 +40,9 @@ router.get('/:id', access.isLoggedIn, (req, res) => {
 // Ajouter une nouvelle catégorie
 router.post('/', access.isLoggedIn, (req, res) => {
   let tmpPostCategory = req.body;
+
+  // On récupère l'id de l'utilisateur grâce à notre middleware
+  tmpPostCategory.cree_par = req.user._id;
   
   PostCategories.create(tmpPostCategory, (err, category) => {
     // Traitement du cas d'erreur
