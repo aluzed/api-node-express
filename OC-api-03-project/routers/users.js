@@ -50,7 +50,7 @@ router.put('/:id', (req, res) => {
   
   Users.findByIdAndUpdate(id, {
       $set: data
-  }, (err, users) => {
+  }, { new: true }, (err, users) => {
       // Erreur lors de l'update
       if(err) {
           // On renvoie un code erreur interne accompagné du message d'erreur

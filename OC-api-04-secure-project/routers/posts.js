@@ -66,7 +66,7 @@ router.put('/:id', access.isLoggedIn, (req, res) => {
   
   Posts.findByIdAndUpdate(id, {
       $set: data
-  }, (err, category) => {
+  }, { new: true }, (err, category) => {
       // Erreur lors de l'update
       if(err) {
           // On renvoie un code erreur interne accompagné du message d'erreur

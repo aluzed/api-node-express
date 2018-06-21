@@ -22,6 +22,7 @@ describe('Security Lib', () => {
   // Test de la fonction hashPassword
   it('Should hash a password', () => {
     passwordHashed = security.hashPassword('azerty');
+    expect(passwordHashed === 'azerty').to.be.false;
     expect(passwordHashed).to.not.be.null;
   });
 

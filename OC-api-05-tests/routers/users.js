@@ -56,7 +56,7 @@ router.put('/:id', access.isLoggedIn, (req, res) => {
   
   Users.findByIdAndUpdate(id, {
       $set: data
-  }, (err, users) => {
+  }, { new: true }, (err, users) => {
       // Erreur lors de l'update
       if(err) {
           // On renvoie un code erreur interne accompagné du message d'erreur
@@ -91,7 +91,7 @@ router.delete('/:id', access.isLoggedIn, (req, res) => {
 
 
 // Mettre à jour un mot de passe utilisateur
-router.post('/update_password/:id', access.isLoggedIn, (req, res) => {
+router.put('/update_password/:id', access.isLoggedIn, (req, res) => {
   // On récupère l'id dans la route
   let id = req.params.id;
 
