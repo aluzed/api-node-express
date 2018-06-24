@@ -44,7 +44,7 @@ router.post('/', access.isLoggedIn, (req, res) => {
   // On récupère l'id de l'utilisateur grâce à notre middleware
   tmpPost.auteur = req.user._id;
   
-  Posts.create(tmpPostCategory, (err, category) => {
+  Posts.create(tmpPost, (err, category) => {
     // Traitement du cas d'erreur
     if(err) {
       return res.status(500).send(err.message);

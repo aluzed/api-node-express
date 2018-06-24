@@ -27,7 +27,7 @@ let user = null;
 // Sauvegarde de notre catégorie
 let post_category = null;
 
-describe('Tests Users Routes', () => {
+describe('Tests Post Categories Routes', () => {
   
   // Ici on va ouvrir notre serveur Express.js
   // Puis on va nettoyer notre base utilisateur pour les tests
@@ -89,10 +89,10 @@ describe('Tests Users Routes', () => {
     }, 1000);
   })  
 
-  // On va essayer un accès à la liste des utilisateurs, et on est sensé recevoir un code 403
+  // On va essayer un accès à la liste des catégories, et on est sensé recevoir un code 403
   it('Should be rejected', done => {
     chai.request(host)
-      .get('/post_categories')
+      .get('/posts')
       .end((err, res) => {
         if(err) throw err;
 
@@ -125,8 +125,7 @@ describe('Tests Users Routes', () => {
       .post('/post_categories')
       .set('x-access-token', user.token)
       .send({
-        libelle: 'new',
-        cree_par: user._id
+        libelle: 'news'
       })
       .end((err, res) => {
         if(err) throw err;
@@ -134,14 +133,14 @@ describe('Tests Users Routes', () => {
         expect(res).to.have.status(200);
         post_category = JSON.parse(res.text);
 
-        expect(post_category.libelle).to.equal('new');
+        expect(post_category.libelle).to.equal('news');
 
         done();
       })
   });
 
   // Test de notre route GET /post_categories
-  it('Should get 1 category', done => {
+  it('Should get one category', done => {
     chai.request(host)
       .get('/post_categories')
       .set('x-access-token', user.token)
@@ -185,8 +184,8 @@ describe('Tests Users Routes', () => {
         
         // Now get users list to see if there is 1 item
         chai.request(host)
-          .get('/post_category')
-          .set('x-access-token', token)
+          .get('/post_categories')
+          .set('x-access-token', user.token)
           .end((err, res) => {
             if(err) throw err;
 
@@ -199,6 +198,6 @@ describe('Tests Users Routes', () => {
           }) 
 
       })
-  })
+  });
 
 });
