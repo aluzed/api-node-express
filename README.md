@@ -1,2 +1,2 @@
-# oc-api-node-express
-OpenClassrooms cours sur l'API Node ExpressJS et MongoDB
+# api-node-express
+Cours sur l'API Node ExpressJS et MongoDB

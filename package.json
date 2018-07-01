@@ -1,21 +1,21 @@
 {
-  "name": "oc-api-node-express",
+  "name": "api-node-express",
   "version": "1.0.0",
-  "description": "OpenClassrooms cours sur l'API Node ExpressJS et MongoDB",
+  "description": "Cours sur l'API Node ExpressJS et MongoDB",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aluzed/oc-api-node-express.git"
+    "url": "git+https://github.com/aluzed/api-node-express.git"
   },
   "author": "alexandre.penombre",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/aluzed/oc-api-node-express/issues"
+    "url": "https://github.com/aluzed/api-node-express/issues"
   },
-  "homepage": "https://github.com/aluzed/oc-api-node-express#readme",
+  "homepage": "https://github.com/aluzed/api-node-express#readme",
   "dependencies": {
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.3",
