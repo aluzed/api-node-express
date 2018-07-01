@@ -1,14 +1,14 @@
 const express = require('express');
-
-// Nous allons créer un router depuis l'objet express
 const router = express.Router();
 
-// Commençons par importer notre modèle
-const Users = require('../models/users');
+// On charge notre librairie d'accès
+const access = require('../libs/access');
 
-// Lister les utilisateurs
-router.get('/', (req, res) => {
-  Users.find({}, (err, results) => {
+const PostCategories = require('../models/post_categories');
+
+// Lister les catégories 
+router.get('/', access.isLoggedIn, (req, res) => {
+  PostCategories.find({}, (err, results) => {
     // Traitement du cas d'erreur
     if(err) {
       // On renvoie un code erreur en tant que réponse
@@ -18,26 +18,45 @@ router.get('/', (req, res) => {
 
     return res.json(results);
   })
+});
+
+// Récupérer une catégorie par son ID
+router.get('/:id', access.isLoggedIn, (req, res) => {
+  let id = req.params.id;
+
+  // Si l'id n'existe pasU
+  if(!id)
+    return res.status(400).send();
+
+  PostCategories.findById(id, (err, result) => {
+    // Si la requête renvoie une erreur
+    if(err)
+      return res.status(500).send(err.message);
+
+    return res.json(result);
+  })
 })
 
-// Ajouter un nouvel utilisateur
-router.post('/', (req, res) => {
-  // Nous allons récupérer le contenu de la request pour créer un utilisateur temporaire
-  let tmpUser = req.body;
+// Ajouter une nouvelle catégorie
+router.post('/', access.isLoggedIn, (req, res) => {
+  let tmpPostCategory = req.body;
+
+  // On récupère l'id de l'utilisateur grâce à notre middleware
+  tmpPostCategory.cree_par = req.user._id;
   
-  Users.create(tmpUser, (err, user) => {
+  PostCategories.create(tmpPostCategory, (err, category) => {
     // Traitement du cas d'erreur
     if(err) {
       return res.status(500).send(err.message);
     } 
 
-    return res.json(user);
+    return res.json(category);
   });
 });
 
 
-// Modifier un utilisateur
-router.put('/:id', (req, res) => {
+// Modifier une catégorie
+router.put('/:id', access.isLoggedIn, (req, res) => {
   let id = req.params.id;
   
   // Si l'id n'est pas défini
@@ -48,21 +67,21 @@ router.put('/:id', (req, res) => {
   
   let data = req.body;
   
-  Users.findByIdAndUpdate(id, {
+  PostCategories.findByIdAndUpdate(id, {
       $set: data
-  }, (err, users) => {
+  }, { new: true }, (err, category) => {
       // Erreur lors de l'update
       if(err) {
           // On renvoie un code erreur interne accompagné du message d'erreur
           return res.status(500).send(err.message);
       }
       
-      return res.json(users);
+      return res.json(category);
   }) 
 });
 
-// Supprimer un utilisateur
-router.delete('/:id', (req, res) => {
+// Supprimer une catégorie
+router.delete('/:id', access.isLoggedIn, (req, res) => {
   let id = req.params.id;
   
   // Si id n'est pas défini
@@ -71,7 +90,7 @@ router.delete('/:id', (req, res) => {
       return res.status(400).send('Id missing');
   }
   
-  Users.findByIdAndRemove(id, (err) => {
+  PostCategories.findByIdAndRemove(id, (err) => {
       // Erreur lors de la suppression
       if(err) {
           // On renvoie un code erreur interne accompagné du message d'erreur
